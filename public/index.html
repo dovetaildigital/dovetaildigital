@@ -70,7 +70,14 @@
         <p class="eyebrow">Get in touch</p>
         <div class="contact-row">
           <div class="contact-copy"><h2>Let’s talk about<br /><em>your project.</em></h2><p>If you have a project in mind, get in touch.</p></div>
-          <div class="contact-cta"><button class="button" type="button">Send an enquiry <span aria-hidden="true">↗</span></button></div>
+          <form class="contact-form" aria-label="Contact form preview">
+            <fieldset disabled>
+              <label>Name<input type="text" name="name" placeholder="Your name" /></label>
+              <label>Email<input type="email" name="email" placeholder="Your email address" /></label>
+              <label>Enquiry<textarea name="message" rows="4" placeholder="Tell me a little about your project"></textarea></label>
+              <button class="button" type="button">Send enquiry <span aria-hidden="true">↗</span></button>
+            </fieldset>
+          </form>
         </div>
       </section>
     </main>
