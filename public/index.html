@@ -46,12 +46,15 @@
       </section>
 
       <section class="services" id="services">
-        <div class="section-heading"><p class="eyebrow">What I do</p><h2>How I can<br /><em>help your charity.</em></h2></div>
-        <div class="service-list">
+        <p class="eyebrow">What I do</p>
+        <div class="services-grid">
+          <h2>How I can<br /><em>help your charity.</em></h2>
+          <div class="service-list">
           <article class="service"><span class="service-num">01</span><div><h3>Fundraising strategy &amp; communications</h3><p>I help charities plan and deliver fundraising campaigns that connect with supporters and drive income.</p></div></article>
           <article class="service"><span class="service-num">02</span><div><h3>Digital marketing</h3><p>Website content, email campaigns and digital channels that reflect your charity’s mission and reach the right people.</p></div></article>
           <article class="service"><span class="service-num">03</span><div><h3>Communications</h3><p>Writing and messaging that helps explain what your charity does and why it matters, in a way that builds trust with supporters and prompts them to act.</p></div></article>
           <article class="service"><span class="service-num">04</span><div><h3>Web design</h3><p>I design and build accessible websites that explain your work and make it easy for people to support you. This includes brochure sites, custom WordPress websites and online shops.</p></div></article>
+          </div>
         </div>
       </section>
 
@@ -70,12 +73,14 @@
         <p class="eyebrow">Get in touch</p>
         <div class="contact-row">
           <div class="contact-copy"><h2>Let’s talk about<br /><em>your project.</em></h2><p>If you have a project in mind, get in touch.</p></div>
-          <form class="contact-form" aria-label="Contact form preview">
-            <fieldset disabled>
-              <label>Name<input type="text" name="name" placeholder="Your name" /></label>
-              <label>Email<input type="email" name="email" placeholder="Your email address" /></label>
-              <label>Enquiry<textarea name="message" rows="4" placeholder="Tell me a little about your project"></textarea></label>
-              <button class="button" type="button">Send enquiry <span aria-hidden="true">↗</span></button>
+          <form class="contact-form" id="contact-form" aria-label="Contact form">
+            <fieldset>
+              <label>Name<input type="text" name="name" autocomplete="name" maxlength="120" placeholder="Your name" required /></label>
+              <label>Email<input type="email" name="email" autocomplete="email" maxlength="254" placeholder="Your email address" required /></label>
+              <label>Enquiry<textarea name="message" rows="4" maxlength="8000" placeholder="Tell me a little about your project" required></textarea></label>
+              <label class="form-trap" aria-hidden="true">Leave this field empty<input type="text" name="website" tabindex="-1" autocomplete="off" /></label>
+              <button class="button" type="submit">Send enquiry <span aria-hidden="true">↗</span></button>
+              <p class="form-status" id="form-status" aria-live="polite" role="status"></p>
             </fieldset>
           </form>
         </div>
@@ -83,6 +88,33 @@
     </main>
 
     <footer><a class="brand footer-brand" href="#top"><img src="/dovetail-digital-primary-logo.png" alt="Dovetail Digital" /></a><span>© <span id="year">2026</span> Dovetail Digital · Charity Marketing, Fundraising &amp; Communications</span><div class="footer-links"><a href="/privacy-policy.html">Privacy policy</a><a href="/cookie-policy.html">Cookie policy</a><a href="#contact">Get in touch ↗</a></div></footer>
-    <script>document.getElementById('year').textContent = new Date().getFullYear()</script>
+    <script>
+      document.getElementById('year').textContent = new Date().getFullYear();
+      const contactForm = document.getElementById('contact-form');
+      const formStatus = document.getElementById('form-status');
+      contactForm.dataset.resendBound = 'true';
+      contactForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const submitButton = contactForm.querySelector('button[type="submit"]');
+        const formData = new FormData(contactForm);
+        submitButton.disabled = true;
+        formStatus.textContent = 'Sending…';
+
+        try {
+          const response = await fetch('/api/contact', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(Object.fromEntries(formData.entries())),
+          });
+          const result = await response.json();
+          formStatus.textContent = result.message || 'We couldn’t send your enquiry just now. Please try again shortly.';
+          if (response.ok) contactForm.reset();
+        } catch {
+          formStatus.textContent = 'We couldn’t send your enquiry just now. Please try again shortly.';
+        } finally {
+          submitButton.disabled = false;
+        }
+      });
+    </script>
   </body>
 </html>
