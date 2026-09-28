@@ -51,7 +51,7 @@ export default {
           method: "POST",
           headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, "Content-Type": "application/json" },
           body: JSON.stringify({
-            from: env.CONTACT_FROM || "Dovetail Digital <website@send.dovetaildigital.co.uk>",
+            from: env.CONTACT_FROM || "Dovetail Digital <website@dovetaildigital.co.uk>",
             to: [env.CONTACT_TO || "studio@dovetaildigital.co.uk"],
             reply_to: email,
             subject,
