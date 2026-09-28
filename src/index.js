@@ -1,5 +1,5 @@
 const MAX_BODY_BYTES = 12_000;
-const EMAIL_RE = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function json(body, status = 200) {
   return new Response(JSON.stringify(body), {
