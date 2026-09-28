@@ -19,7 +19,7 @@
 .service:hover .service-num,.service:focus-within .service-num{color:var(--accent);transform:translateX(2px)}
 .intro-grid h2{position:relative;width:fit-content}
 .intro-grid h2::after{content:"";position:absolute;left:0;bottom:-5px;width:66%;height:5px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .35s ease}
-.intro-section:hover .intro-grid h2::after{transform:scaleX(1)}
+.intro-grid h2::after{transform:scaleX(1)}
 .hero h1 em{background-size:0% 100%;background-repeat:no-repeat;animation:hero-highlight .85s cubic-bezier(.2,.7,.2,1) .25s forwards}
 @keyframes hero-highlight{to{background-size:100% 100%}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
