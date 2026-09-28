@@ -23,3 +23,9 @@
 .contact-form input:focus,.contact-form textarea:focus{position:static;margin:0;transform:none;outline:2px solid var(--accent);outline-offset:2px}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 @media(max-width:800px){.contact-form input,.contact-form textarea{font-size:16px}}
+.back-to-top-wrap{display:flex;justify-content:flex-end;background:#151515;padding:0 12vw 28px}
+.back-to-top{background:transparent;color:white;border:1px solid #555}
+.back-to-top span{color:var(--accent)}
+@media(max-width:800px){.back-to-top-wrap{padding:0 8vw 24px}}
+@media(max-width:520px){.back-to-top-wrap{padding:0 7vw 22px}}
+html{scroll-behavior:smooth;scroll-padding-top:24px}
