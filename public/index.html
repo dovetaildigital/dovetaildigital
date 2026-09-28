@@ -19,7 +19,7 @@
       <nav aria-label="Main navigation">
         <a href="#services">What I do</a>
         <a href="#about">About</a>
-        <a class="nav-contact" href="#contact">Get in touch <span aria-hidden="true">↗</span></a>
+        <a class="nav-contact" href="#contact">Get in touch <span aria-hidden="true">→</span></a>
       </nav>
     </header>
 
@@ -29,7 +29,7 @@
           <p class="eyebrow"><span></span> Freelance support for the charity sector</p>
           <h1>Marketing, fundraising &amp; communications for <em>charities</em></h1>
           <p class="intro">Freelance support for charities, drawing on almost 20 years’ experience in the sector.</p>
-          <a class="button" href="#contact">Discuss a project <span aria-hidden="true">↗</span></a>
+          <a class="button" href="#contact">Discuss a project <span aria-hidden="true">→</span></a>
         </div>
         <div class="hero-bottom"><span>Fundraising · marketing · communications</span><a href="#services">What I do <b>↓</b></a></div>
       </section>
@@ -37,11 +37,11 @@
       <section class="intro-section" id="about">
         <p class="eyebrow">About</p>
         <div class="intro-grid">
-          <h2>About Dovetail Digital</h2>
+          <h2>About <em>Dovetail Digital</em></h2>
           <div class="intro-text">
             <p>Hi, I’m James Holloway. Dovetail Digital is where I bring together more than 18 years of experience working with charities. My work has covered fundraising, digital marketing and communications, from planning campaigns to improving the systems charities use to understand their results.</p>
             <p>I offer freelance support on specific projects or on an ongoing basis, working alongside your team and shaping the support around your goals, capacity and budget.</p>
-            <a class="button" href="#contact">Get in touch <span aria-hidden="true">↗</span></a>
+            <a class="button" href="#contact">Get in touch <span aria-hidden="true">→</span></a>
           </div>
         </div>
       </section>
@@ -78,7 +78,7 @@
               <label>Name<input type="text" name="name" autocomplete="name" maxlength="120" placeholder="Your name" required /></label>
               <label>Email<input type="email" name="email" autocomplete="email" maxlength="254" placeholder="Your email address" required /></label>
               <label>Enquiry<textarea name="message" rows="4" maxlength="8000" placeholder="Tell me a little about your project" required></textarea></label>
-              <button class="button" type="submit">Send enquiry <span aria-hidden="true">↗</span></button>
+              <button class="button" type="submit">Send enquiry <span aria-hidden="true">→</span></button>
               <p class="form-status" id="form-status" aria-live="polite" role="status"></p>
             </fieldset>
           </form>
@@ -86,9 +86,23 @@
       </section>
     </main>
 
-    <footer><a class="brand footer-brand" href="#top"><img src="/dovetail-digital-primary-logo.png" alt="Dovetail Digital" /></a><span>© <span id="year">2026</span> Dovetail Digital · Freelance support for charities</span><div class="footer-links"><a href="/privacy-policy.html">Privacy policy</a><a href="/cookie-policy.html">Cookie policy</a><a href="#contact">Get in touch ↗</a></div></footer>
+    <footer><a class="brand footer-brand" href="#top"><img src="/dovetail-digital-primary-logo.png" alt="Dovetail Digital" /></a><span>© <span id="year">2026</span> Dovetail Digital · Freelance support for charities</span><div class="footer-links"><a href="/privacy-policy.html">Privacy policy</a><a href="/cookie-policy.html">Cookie policy</a><a href="#contact">Get in touch →</a></div></footer>
     <script>
       document.getElementById('year').textContent = new Date().getFullYear();
+      const highlights = document.querySelectorAll('.hero h1 em, .intro-grid h2 em, .services-grid h2 em, .approach h2 em');
+      if ('IntersectionObserver' in window) {
+        const highlightObserver = new IntersectionObserver((entries, observer) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.65 });
+        highlights.forEach((highlight) => highlightObserver.observe(highlight));
+      } else {
+        highlights.forEach((highlight) => highlight.classList.add('is-visible'));
+      }
       const contactForm = document.getElementById('contact-form');
       const formStatus = document.getElementById('form-status');
       contactForm.dataset.resendBound = 'true';
