@@ -71,6 +71,12 @@ export default {
     if (!assetResponse.headers.get("content-type")?.includes("text/html")) return assetResponse;
     return new HTMLRewriter()
       .on(".form-trap", { element(element) { element.remove(); } })
+      .on("head", { element(element) {
+        element.append(
+          '<style>.contact-form .button{cursor:pointer}.contact-form .button:disabled{cursor:wait;opacity:.75}</style>',
+          { html: true }
+        );
+      } })
       .transform(assetResponse);
   },
 };
