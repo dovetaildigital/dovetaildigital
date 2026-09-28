@@ -66,6 +66,11 @@ export default {
       return json({ message: "Thanks, your enquiry has been sent. I’ll be in touch soon." });
     }
 
-    return env.ASSETS.fetch(request);
+    const assetResponse = await env.ASSETS.fetch(request);
+    if (url.pathname !== "/" && url.pathname !== "/index.html") return assetResponse;
+    if (!assetResponse.headers.get("content-type")?.includes("text/html")) return assetResponse;
+    return new HTMLRewriter()
+      .on(".form-trap", { element(element) { element.remove(); } })
+      .transform(assetResponse);
   },
 };
