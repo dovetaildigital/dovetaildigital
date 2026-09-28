@@ -95,32 +95,11 @@
           </form>
         </div>
       </section>
-      <a class="back-to-top-float" href="#top" aria-hidden="true" tabindex="-1"><span class="back-to-top-arrow" aria-hidden="true">↑</span><span class="back-to-top-label">Back to top</span></a>
+      <section class="back-to-top-section" aria-label="Page navigation"><a class="button back-to-top" href="#top"><span class="back-to-top-arrow" aria-hidden="true">↑</span><span class="back-to-top-label">Back to top</span></a></section>
     </main>
 
     <footer><a class="brand footer-brand" href="#top"><img src="/dovetail-digital-primary-logo.png" alt="Dovetail Digital" /></a><span>© <span id="year">2026</span> Dovetail Digital · Freelance support for charities</span><div class="footer-links"><a href="/privacy-policy.html">Privacy policy</a><a href="/cookie-policy.html">Cookie policy</a><a href="#contact">Get in touch →</a></div></footer>
     <script>
-      const backToTop = document.querySelector('.back-to-top-float');
-      const aboutSection = document.getElementById('about');
-      const contactSection = document.getElementById('contact');
-      let backToTopFrame = 0;
-      const updateBackToTop = () => {
-        backToTopFrame = 0;
-        const aboutMidpoint = aboutSection.offsetTop + aboutSection.offsetHeight / 2;
-        const contactBounds = contactSection.getBoundingClientRect();
-        const contactIsVisible = contactBounds.top < window.innerHeight && contactBounds.bottom > 0;
-        const showButton = window.scrollY >= aboutMidpoint && !contactIsVisible;
-        backToTop.classList.toggle('is-visible', showButton);
-        backToTop.setAttribute('aria-hidden', String(!showButton));
-        backToTop.tabIndex = showButton ? 0 : -1;
-      };
-      const scheduleBackToTopUpdate = () => {
-        if (!backToTopFrame) backToTopFrame = window.requestAnimationFrame(updateBackToTop);
-      };
-      window.addEventListener('scroll', scheduleBackToTopUpdate, { passive: true });
-      window.addEventListener('resize', scheduleBackToTopUpdate);
-      updateBackToTop();
-
       document.getElementById('year').textContent = new Date().getFullYear();
       const highlights = document.querySelectorAll('.hero h1 em, .intro-grid h2 em, .services-grid h2 em, .approach h2 em');
       if ('IntersectionObserver' in window) {
