@@ -33,3 +33,41 @@ html{scroll-behavior:smooth;scroll-padding-top:24px}
 .back-to-top:focus-visible .back-to-top-arrow{outline:2px solid var(--accent);outline-offset:3px}
 footer{border-top:1px solid var(--line)}
 @media(max-width:800px){.back-to-top-section{padding-top:18px;padding-bottom:20px}}
+
+/* Keep the page comfortable on narrow touch screens. */
+html{scroll-padding-top:0}
+img{max-width:100%}
+@media(max-width:800px){
+  .site-header nav{display:none}
+  .site-header{height:76px; text-align:center;}
+  .brand{min-height:44px}
+  .intro-grid,.approach-grid,.services-grid,.contact-row,.service-list,.service-list>*{min-width:0}
+  .hero-copy,.intro-text,.approach-text,.contact-copy,.contact-form{min-width:0}
+  footer{gap:12px}
+  footer .footer-description{display:none}
+  footer .footer-links{gap:4px 12px;justify-content:center}
+  footer .footer-links a,footer>a:last-child{display:flex;align-items:center;min-height:44px;padding:0 4px}
+}
+@media(max-width:520px){
+  .hero{min-height:0;padding:76px 7vw 84px}
+  .hero h1{font-size:clamp(2.2rem,11vw,2.94rem);line-height:1.02;margin:27px 0 22px;overflow-wrap:anywhere}
+  .hero .eyebrow{font-size:8px;letter-spacing:.12em}
+  .intro{font-size:15px;line-height:1.7;margin-bottom:24px}
+  .hero-bottom{font-size:7px;letter-spacing:.08em}
+  .intro-section,.approach{padding-top:60px;padding-bottom:64px}
+  .services{padding-top:64px;padding-bottom:68px}
+  .contact{padding-top:60px;padding-bottom:64px}
+  .intro-grid h2,.services-grid h2,.approach h2{font-size:clamp(2.1rem,9.8vw,2.625rem);line-height:1.08}
+  .contact h2{font-size:clamp(2.5rem,12.8vw,3.44rem);line-height:1.04}
+  .service{grid-template-columns:36px minmax(0,1fr);gap:10px}
+  .service h3{font-size:17px;line-height:1.3}
+  .service p{font-size:13px;line-height:1.65}
+  .contact-copy>p{font-size:15px;line-height:1.7}
+  .contact-form fieldset{gap:14px}
+  .contact-form input,.contact-form textarea{width:100%;min-width:0;font-size:16px}
+  footer{display:grid;grid-template-columns:minmax(0,1fr);justify-items:center;gap:5px;min-height:0;padding:16px 7vw 18px;text-align:center}
+  footer .brand{width:58px;height:40px}
+  footer>span{font-size:11px;line-height:1.5}
+  footer .footer-links{width:100%;gap:0 10px}
+  .back-to-top-section{padding-top:16px;padding-bottom:18px}
+}
