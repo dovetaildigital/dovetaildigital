@@ -66,6 +66,22 @@ export default {
       return json({ message: "Thanks, your enquiry has been sent. I’ll be in touch soon." });
     }
 
+    const path = url.pathname.replace(/\/+$/, "") || "/";
+
+    const redirects = new Set([
+      "/ecommerce",
+      "/portfolio",
+      "/about",
+      "/contact",
+      "/website-development",
+      "/website-design",
+      "/search-engine-optimisation",
+      "/custom-wordpress-websites",
+    ]);
+
+    if (redirects.has(path)) {
+      return Response.redirect(`${url.origin}/`, 301);
+    }
     const assetResponse = await env.ASSETS.fetch(request);
     if (url.pathname !== "/" && url.pathname !== "/index.html") return assetResponse;
     if (!assetResponse.headers.get("content-type")?.includes("text/html")) return assetResponse;
