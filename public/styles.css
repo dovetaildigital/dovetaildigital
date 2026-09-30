@@ -238,3 +238,29 @@ html{scroll-padding-top:32px}
 @media(prefers-reduced-motion:reduce){
   .hero h1 em.is-visible,.intro-grid h2 em.is-visible,.services-grid h2 em.is-visible,.approach h2 em.is-visible{animation:none;background-size:100% 100%}
 }
+
+/* Service interaction: let the pink marker do the talking */
+.service,.service:hover,.service:focus-within{
+  padding-left:13px;
+  background:transparent;
+  transition:none;
+}
+.service::before,.service::after{content:none}
+.service:hover::before,.service:focus-within::before,.service:hover::after,.service:focus-within::after{content:none;transform:none}
+.service-num,.service:hover .service-num,.service:focus-within .service-num{
+  color:#70706d;
+  transition:none;
+}
+.service h3,.service:hover h3,.service:focus-within h3{
+  width:fit-content;
+  max-width:100%;
+  transform:none;
+  color:var(--ink);
+  background-image:linear-gradient(transparent 75%,var(--accent) 75%,var(--accent) 88%,transparent 88%);
+  background-repeat:no-repeat;
+  background-position:left bottom;
+  background-size:0% 100%;
+  transition:background-size .28s cubic-bezier(.2,.7,.2,1);
+}
+.service:hover h3,.service:focus-within h3{background-size:100% 100%}
+@media(max-width:520px){.service,.service:hover,.service:focus-within{padding-left:8px}}
