@@ -125,12 +125,6 @@ html{scroll-padding-top:32px}
 .hero-copy{width:min(76%,900px);max-width:900px}
 .hero h1{max-width:900px;font-size:clamp(64px,7.4vw,108px);line-height:.94;letter-spacing:-.078em;font-weight:600;margin-top:31px;margin-bottom:28px}
 .hero h1>span{display:block}
-.hero-proof{width:190px;position:absolute;right:10vw;top:50%;transform:translateY(-42%);padding:0 0 3px 25px;border-left:1px solid #d7d7d3}
-.hero-proof-number{font-family:Manrope,'DM Sans',sans-serif;font-size:clamp(68px,8vw,110px);font-weight:600;letter-spacing:-.09em;line-height:.85;margin:0 0 16px}
-.hero-proof-number span{color:var(--accent);font-size:.54em;vertical-align:top;letter-spacing:-.04em}
-.hero-proof-label{font-size:11px;line-height:1.55;letter-spacing:.04em;font-weight:600;margin:0}
-.hero-proof-rule{display:block;width:34px;height:2px;background:var(--accent);margin:25px 0 18px}
-.hero-proof-note{font-size:11px;line-height:1.7;color:#777;margin:0}
 .hero .intro{max-width:470px;font-size:16px;line-height:1.75}
 .hero-bottom{font-size:9px;letter-spacing:.13em}
 .intro-section{position:relative;padding-top:118px;padding-bottom:132px}
@@ -170,16 +164,11 @@ html{scroll-padding-top:32px}
 .form-status{color:#d2d2ce;font-size:12px;line-height:1.5;align-self:center;margin:7px 0 0}
 @media(max-width:1000px){
   .hero-copy{width:72%}
-  .hero-proof{right:7vw;width:160px;padding-left:19px}
   .contact{padding-left:9vw;padding-right:9vw}
 }
 @media(max-width:800px){
   .hero{min-height:690px;padding-top:85px;padding-bottom:96px}
   .hero-copy{width:100%;max-width:740px}
-  .hero-proof{right:8vw;top:auto;bottom:92px;transform:none;width:auto;padding:0 0 0 14px;display:flex;align-items:center;gap:13px;border-left:1px solid #d7d7d3}
-  .hero-proof-number{font-size:42px;margin:0}
-  .hero-proof-label{font-size:9px;line-height:1.4}
-  .hero-proof-rule,.hero-proof-note{display:none}
   .hero-bottom{bottom:22px}
   .intro-section{padding-top:88px;padding-bottom:96px}
   .intro-grid h2{font-size:clamp(56px,9vw,78px)}
@@ -190,12 +179,10 @@ html{scroll-padding-top:32px}
   .contact h2{font-size:clamp(58px,9vw,82px)}
 }
 @media(max-width:520px){
-  .hero{min-height:680px;padding:65px 7vw 132px}
+  .hero{min-height:640px;padding:65px 7vw 112px}
   .hero h1{font-size:clamp(46px,12vw,62px);line-height:.98;letter-spacing:-.075em;max-width:none;margin-top:27px}
   .hero h1>span{display:block}
   .hero .intro{max-width:34ch;font-size:15px}
-  .hero-proof{left:7vw;right:auto;bottom:76px;gap:12px}
-  .hero-proof-number{font-size:38px}
   .hero-bottom{left:7vw;right:7vw;bottom:20px}
   .hero-bottom span{max-width:62%;line-height:1.5}
   .intro-section{padding-top:74px;padding-bottom:84px}
@@ -222,4 +209,32 @@ html{scroll-padding-top:32px}
   .contact-form fieldset{grid-template-columns:1fr;gap:16px}
   .contact-form label:nth-child(3){grid-column:auto}
   .contact-form input,.contact-form textarea{font-size:16px}
+}
+
+/* Signature motion: the brand marker, used with restraint */
+.hero .eyebrow span{width:22px;height:1px;flex:none;border:0;border-radius:0}
+.hero h1 em,.intro-grid h2 em,.services-grid h2 em,.approach h2 em{
+  background-image:linear-gradient(transparent 76%,var(--accent) 76%,var(--accent) 87%,transparent 87%);
+  background-size:0% 100%;
+  background-repeat:no-repeat;
+}
+.hero h1 em.is-visible,.intro-grid h2 em.is-visible,.services-grid h2 em.is-visible,.approach h2 em.is-visible{
+  animation:marker-draw .68s cubic-bezier(.22,.72,.22,1) forwards;
+}
+@keyframes marker-draw{to{background-size:100% 100%}}
+.site-header nav a:not(.nav-contact)::after{height:2px;bottom:-7px;transform-origin:center}
+.site-header nav a:not(.nav-contact):hover::after,.site-header nav a:not(.nav-contact):focus-visible::after{transform:scaleX(1)}
+.button:not(.back-to-top){transition:background-color .2s ease,color .2s ease,border-color .2s ease}
+.button:not(.back-to-top):hover,.button:not(.back-to-top):focus-visible{background-color:var(--accent);color:#111}
+.button:not(.back-to-top):hover span,.button:not(.back-to-top):focus-visible span{color:#111;transform:translateX(3px)}
+.service{overflow:hidden}
+.service::after{content:"";position:absolute;left:0;top:0;width:100%;height:1px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .24s ease}
+.service h3{transition:transform .2s ease,color .2s ease}
+.service:hover h3,.service:focus-within h3{transform:translateX(3px)}
+.service:hover::after,.service:focus-within::after{transform:scaleX(1)}
+.nav-contact span{transition:transform .2s ease,color .2s ease}
+.nav-contact:hover span,.nav-contact:focus-visible span{transform:translateX(3px)}
+.contact-form input,.contact-form textarea{transition:border-color .2s ease,box-shadow .2s ease}
+@media(prefers-reduced-motion:reduce){
+  .hero h1 em.is-visible,.intro-grid h2 em.is-visible,.services-grid h2 em.is-visible,.approach h2 em.is-visible{animation:none;background-size:100% 100%}
 }
