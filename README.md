@@ -23,10 +23,14 @@ The form fetches `/api/contact/config` to obtain the public Turnstile site key a
 
 `CONTACT_RATE_LIMITER` limits POST attempts to five per IP per 60 seconds, including invalid submissions. The bootstrap endpoint has a separate limit of 30 per IP per 60 seconds. Only Cloudflare's `CF-Connecting-IP` header is used; missing IPs share a fallback bucket for local development. Cloudflare's native counters are approximate and local to each Cloudflare location, rather than a strict global quota. Visitors sharing an IP share the allowance. Rejected attempts return HTTP 429 with `Retry-After: 60`.
 
+### Cloudflare configuration
+
+The managed widget and encrypted `TURNSTILE_SECRET_KEY` and `CONTACT_FORM_SECRET` were configured on the `dovetaildigital` Worker for production and preview environments on 4 October 2026. Existing production `RESEND_API_KEY` was retained. The implementation still needs review and deployment via this pull request. Preview hostnames under `workers.dev` are not allowed by this production widget; use a separate staging widget for those hostnames.
+
 ### Before production deployment
 
 1. Create a **managed Turnstile widget** in the Cloudflare account and allow `dovetaildigital.co.uk` and `www.dovetaildigital.co.uk`. Add any intentional staging hostname separately. The server requires the verified hostname to match the request hostname, and action to equal `contact`.
-2. Set `vars.TURNSTILE_SITE_KEY` in `wrangler.jsonc` to the widget's **public** site key. It is intentionally empty in the repository; the form reports unavailable until configured. Never put the secret key here.
+2. Set `vars.TURNSTILE_SITE_KEY` in `wrangler.jsonc` to the widget's **public** site key. The public key is configured for the “Dovetail Digital contact form” managed widget. Its root hostname `dovetaildigital.co.uk` also covers `www.dovetaildigital.co.uk`. Never put the secret key here.
 3. Store secrets using the interactive Wrangler secret prompts (do not paste credentials into source or shell arguments):
 
    ```sh
