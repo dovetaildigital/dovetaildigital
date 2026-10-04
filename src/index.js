@@ -113,12 +113,6 @@ export default {
       if ((data.organisation != null && typeof data.organisation !== "string") || organisation.length > 160 ||
           (data.website != null && typeof data.website !== "string") || website.length > 2048)
         return json({ message: "Please check your organisation name and website." }, 400);
-      if (website) {
-        try {
-          const parsed = new URL(website);
-          if (!["http:", "https:"].includes(parsed.protocol) || parsed.username || parsed.password) throw new Error();
-        } catch { return json({ message: "Please enter a website starting with https:// or http://." }, 400); }
-      }
 
       const name = typeof data.name === "string" ? data.name.trim().slice(0, 120) : "";
       const email = typeof data.email === "string" ? data.email.trim().slice(0, 254) : "";
