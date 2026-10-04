@@ -15,6 +15,10 @@ npm run dev
 
 The tests stub Turnstile and Resend: they never send real emails. `npm run check` validates and bundles the Worker without deploying it.
 
+## Pull-request previews
+
+Cloudflare uses `npx wrangler preview` for branch builds. The required `previews` block is declared in `wrangler.jsonc`. Static assets and compatibility settings remain at the top level. Preview runtime variables and bindings are not inherited from production. The empty block enables visual previews; contact sending remains unavailable until separate staging settings, rate-limit bindings, a hostname-approved widget and a test email configuration are provided. Production verification is never bypassed.
+
 ## Contact protection and setup
 
 The optional organisation name and website fields are included in plain-text and HTML enquiry emails. Website is plain text, so addresses such as `www.dovetaildigital.co.uk` are accepted without a scheme. It is never a honeypot. User content is escaped in HTML emails.
