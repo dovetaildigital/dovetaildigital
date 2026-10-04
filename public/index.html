@@ -85,11 +85,15 @@
         <p class="eyebrow">Get in touch</p>
         <div class="contact-row">
           <div class="contact-copy"><h2>Let’s talk about<br /><em>your project</em></h2><p>Tell me what you’re working on, where you’re stuck and what kind of support you need. I’ll get back to you and we can discuss your options and how I might be able to help.</p></div>
-          <form class="contact-form" id="contact-form" aria-label="Contact form">
+          <form class="contact-form" id="contact-form" aria-label="Contact form" aria-describedby="form-status">
             <fieldset>
               <label>Name<input type="text" name="name" autocomplete="name" maxlength="120" placeholder="Your name" required /></label>
               <label>Email<input type="email" name="email" autocomplete="email" maxlength="254" placeholder="Your email address" required /></label>
-              <label>Enquiry<textarea name="message" rows="4" maxlength="8000" placeholder="Tell me a little about your project" required></textarea></label>
+              <label>Organisation name (optional)<input type="text" name="organisation" autocomplete="organization" maxlength="160" placeholder="Your organisation" /></label>
+              <label>Website (optional)<input type="url" name="website" autocomplete="url" maxlength="2048" placeholder="https://example.org" /></label>
+              <label class="enquiry-field">Enquiry<textarea name="message" rows="4" maxlength="8000" placeholder="Tell me a little about your project" required></textarea></label>
+              <div id="contact-turnstile" class="contact-turnstile"></div>
+              <noscript><p>Please enable JavaScript to use this form, or email <a href="mailto:studio@dovetaildigital.co.uk">studio@dovetaildigital.co.uk</a>.</p></noscript>
               <button class="button" type="submit">Send enquiry <span aria-hidden="true">→</span></button>
               <p class="form-status" id="form-status" aria-live="polite" role="status"></p>
             </fieldset>
@@ -116,31 +120,7 @@
       } else {
         highlights.forEach((highlight) => highlight.classList.add('is-visible'));
       }
-      const contactForm = document.getElementById('contact-form');
-      const formStatus = document.getElementById('form-status');
-      contactForm.dataset.resendBound = 'true';
-      contactForm.addEventListener('submit', async (event) => {
-        event.preventDefault();
-        const submitButton = contactForm.querySelector('button[type="submit"]');
-        const formData = new FormData(contactForm);
-        submitButton.disabled = true;
-        formStatus.textContent = 'Sending…';
-
-        try {
-          const response = await fetch('/api/contact', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(Object.fromEntries(formData.entries())),
-          });
-          const result = await response.json();
-          formStatus.textContent = result.message || 'We couldn’t send your enquiry just now. Please try again shortly.';
-          if (response.ok) contactForm.reset();
-        } catch {
-          formStatus.textContent = 'We couldn’t send your enquiry just now. Please try again shortly.';
-        } finally {
-          submitButton.disabled = false;
-        }
-      });
     </script>
+    <script src="/contact.js" defer></script>
   </body>
 </html>
