@@ -43,11 +43,11 @@ test('optional organisation and website reach text and escaped HTML email', asyn
   mock();
   const data = await payload();
   data.organisation = 'Charity <Friends>';
-  data.website = 'https://example.org/?a=1&b=2';
+  data.website = 'www.dovetaildigital.co.uk';
   assert.equal((await worker.fetch(request('/api/contact', data), env)).status, 200);
   assert.equal(calls.length, 2);
   assert.match(calls[1].body.text, /Organisation: Charity <Friends>/);
-  assert.match(calls[1].body.text, /Website: https:\/\/example.org/);
+  assert.match(calls[1].body.text, /Website: www\.dovetaildigital\.co\.uk/);
   assert.match(calls[1].body.html, /Charity &lt;Friends&gt;/);
   assert.match(calls[1].body.html, /Hello<br>World/);
   assert.equal(calls[0].body.remoteip, '192.0.2.1');
@@ -106,10 +106,10 @@ test('fails closed on unavailable configuration or limiter', async () => {
   }
   assert.equal((await worker.fetch(request('/api/contact', data), { ...env, CONTACT_RATE_LIMITER: { limit: async () => { throw new Error(); } } })).status, 503);
 });
-test('rejects invalid websites, types and oversized optional fields', async () => {
+test('rejects invalid field types and oversized optional fields', async () => {
   mock();
   const data = await payload();
-  for (const extra of [{ website: 'javascript:alert(1)' }, { website: 'https://user:pass@example.org' }, { website: {} }, { organisation: 'x'.repeat(161) }]) {
+  for (const extra of [{ website: 'x'.repeat(2049) }, { website: {} }, { organisation: 'x'.repeat(161) }]) {
     assert.equal((await worker.fetch(request('/api/contact', { ...data, ...extra }), env)).status, 400);
   }
   assert.equal(calls.length, 0);

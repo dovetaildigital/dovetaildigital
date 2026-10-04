@@ -46,6 +46,7 @@
       action: 'contact',
       theme: 'dark',
       size: 'flexible',
+      appearance: 'interaction-only',
       callback: (token) => { botToken = token; updateButton(); },
       'expired-callback': () => verificationFailed('The bot protection check expired. Please complete it again.'),
       'error-callback': () => verificationFailed('Bot protection could not load. Please refresh the page or email studio@dovetaildigital.co.uk.'),

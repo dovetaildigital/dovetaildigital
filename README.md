@@ -17,7 +17,9 @@ The tests stub Turnstile and Resend: they never send real emails. `npm run check
 
 ## Contact protection and setup
 
-The optional organisation name and website fields are included in plain-text and HTML enquiry emails. Website accepts HTTP(S) URLs and is never a honeypot. User content is escaped in HTML emails.
+The optional organisation name and website fields are included in plain-text and HTML enquiry emails. Website is plain text, so addresses such as `www.dovetaildigital.co.uk` are accepted without a scheme. It is never a honeypot. User content is escaped in HTML emails.
+
+Turnstile uses `interaction-only` appearance: background checks are hidden and the widget appears only when a visitor must interact. Server-side verification remains required.
 
 The form fetches `/api/contact/config` to obtain the public Turnstile site key and an HMAC-signed start token. The server requires at least three seconds since token issuance and expires tokens after two hours. This is a lightweight speed check, not proof of human activity; bots can wait too. Tokens are not single-use; Turnstile's separate verification tokens are single-use and must pass verification before email is sent.
 
